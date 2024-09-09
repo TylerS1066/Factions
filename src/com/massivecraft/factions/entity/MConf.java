@@ -4,8 +4,6 @@ import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.engine.EngineChat;
 import com.massivecraft.factions.event.EventFactionsChunkChangeType;
-import com.massivecraft.factions.integration.dynmap.DynmapStyle;
-import com.massivecraft.factions.integration.dynmap.IntegrationDynmap;
 import com.massivecraft.massivecore.collections.BackstringSet;
 import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.collections.WorldExceptionSet;
@@ -722,79 +720,4 @@ public class MConf extends Entity<MConf>
 	public boolean bankFactionPaysCosts = true;
 
 	public boolean useNewMoneySystem = false;
-
-	// -------------------------------------------- //
-	// INTEGRATION: DYNMAP
-	// -------------------------------------------- //
-
-	// Should the dynmap intagration be used?
-	public boolean dynmapEnabled = true;
-
-	// Should the dynmap updates be logged to console output?
-	public boolean dynmapLogTimeSpent = false;
-
-	// Name of the Factions layer
-	public String dynmapLayerName = "Factions";
-
-	// Should the layer be visible per default
-	public boolean dynmapLayerHiddenByDefault = false;
-
-	// Ordering priority in layer menu (low goes before high - default is 0)
-	public int dynmapLayerPriority = 2;
-
-	// (optional) set minimum zoom level before layer is visible (0 = defalt, always visible)
-	public int dynmapLayerMinimumZoom = 0;
-
-	// Format for popup - substitute values for macros
-	//public String dynmapInfowindowFormat = "<div class=\"infowindow\"><span style=\"font-size:120%;\">%regionname%</span><br />Flags<br /><span style=\"font-weight:bold;\">%flags%</span></div>";
-	public String dynmapFactionDescription =
-		"<div class=\"infowindow\">\n" +
-		"<span style=\"font-weight: bold; font-size: 150%;\">%name%</span></br>\n" +
-		"<span style=\"font-style: italic; font-size: 110%;\">%description%</span></br>\n" +
-		"</br>\n" +
-		"<span style=\"font-weight: bold;\">Leader:</span> %players.leader%</br>\n" +
-		"<span style=\"font-weight: bold;\">Members:</span> %players%</br>\n" +
-		"</br>\n" +
-		"<span style=\"font-weight: bold;\">Age:</span> %age%</br>\n" +
-		"<span style=\"font-weight: bold;\">Bank:</span> %money%</br>\n" +
-		"</br>\n" +
-		"<span style=\"font-weight: bold;\">Flags:</span></br>\n" +
-		"%flags.table3%\n" +
-		"</div>";
-
-	// Enable the %money% macro. Only do this if you know your economy manager is thread safe.
-	public boolean dynmapShowMoneyInDescription = false;
-
-	// Allow players in faction to see one another on Dynmap (only relevant if Dynmap has 'player-info-protected' enabled)
-	//public boolean dynmapVisibilityByFaction = true;
-
-	// Optional setting to limit which regions to show.
-	// If empty all regions are shown.
-	// Specify Faction either by name or UUID.
-	// To show all regions on a given world, add 'world:<worldname>' to the list.
-	public Set<String> dynmapVisibleFactions = new MassiveSet<>();
-
-	// Optional setting to hide specific Factions.
-	// Specify Faction either by name or UUID.
-	// To hide all regions on a given world, add 'world:<worldname>' to the list.
-	public Set<String> dynmapHiddenFactions = new MassiveSet<>();
-
-	@EditorVisible(false)
-	public DynmapStyle dynmapDefaultStyle = new DynmapStyle(
-		IntegrationDynmap.DYNMAP_STYLE_LINE_COLOR,
-		IntegrationDynmap.DYNMAP_STYLE_LINE_OPACITY,
-		IntegrationDynmap.DYNMAP_STYLE_LINE_WEIGHT,
-		IntegrationDynmap.DYNMAP_STYLE_FILL_COLOR,
-		IntegrationDynmap.DYNMAP_STYLE_FILL_OPACITY,
-		IntegrationDynmap.DYNMAP_STYLE_HOME_MARKER,
-		IntegrationDynmap.DYNMAP_STYLE_BOOST
-	);
-
-	// Optional per Faction style overrides. Any defined replace those in dynmapDefaultStyle.
-	// Specify Faction either by name or UUID.
-	@EditorVisible(false)
-	public Map<String, DynmapStyle> dynmapFactionStyles = MUtil.map(
-		"SafeZone", new DynmapStyle().withLineColor("#FF00FF").withFillColor("#FF00FF").withBoost(false),
-		"WarZone", new DynmapStyle().withLineColor("#FF0000").withFillColor("#FF0000").withBoost(false)
-	);
 }
